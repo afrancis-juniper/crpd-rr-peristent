@@ -37,3 +37,7 @@ This repository provides examples for how to achieve different outcomes targeted
 
 ### Copy the the active nft config from a specific container to file for persistance
 `docker exec rr-crpd-1 sh -c "nft list rable inet filter > /etc/nftables.conf`
+
+# Links
+
+https://wiki.nftables.org/wiki-nftables/index.php/Quick_reference-nftables_in_10_minutes
