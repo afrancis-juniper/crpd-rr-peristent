@@ -35,5 +35,5 @@ This repository provides examples for how to achieve different outcomes targeted
 ### Add nftables entry to specific prefixes
 `docker exec rr-crpd-1 nft add element inet filter SSHAllowed { 172.16.1.255 }`
 
-### Copy the the active nft config to file for persistance
+### Copy the the active nft config from a specific container to file for persistance
 `docker exec rr-crpd-1 sh -c "nft list rable inet filter > /etc/nftables.conf`
