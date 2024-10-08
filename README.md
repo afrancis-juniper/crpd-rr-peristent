@@ -1,4 +1,4 @@
-# cRR Examples
+# cRPD Route-Reflector Examples
 
 This repository provides examples for how to achieve different outcomes targeted at containerized route reflector ("cRR") use cases. Examples contained herein do not construe recommendations but are available means to construct bespoke solutions for the particular requirements.
 
