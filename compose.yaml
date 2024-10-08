@@ -1,0 +1,57 @@
+## conatiner name will start with rr01 and finish with crpd-1 - rr01-crpd-1 for the first docker rr01-crpd-2, etc on the same host
+name: rr01
+
+services:
+  crpd:
+    image: crpd:23.4R2-S2.1
+    entrypoint: /sbin/runit_init.sh
+    privileged: true
+    networks:
+      - rr-p1
+      - rr-p2
+    volumes:
+      - config:/config
+      - varlog:/var/log
+      - type: bind
+        source: ./nftables.conf
+        target: /etc/nftables.conf
+    configs:
+      - source: runit_init_sh
+        target: /sbin/runit_init.sh
+        mode: 0755
+
+networks:
+  rr-p1:
+    driver: macvlan
+    driver_opts:
+      parent: eth2
+    ipam:
+      config:
+        - subnet: "10.200.100.242/31"
+          ip_range: "10.200.100.243/32"
+          gateway: "10.200.100.242"
+  rr-p2:
+    driver: macvlan
+    driver_opts:
+      parent: eth3
+    ipam:
+      config:
+        - subnet: "10.200.100.244/31"
+          ip_range: "10.200.100.245/32"
+          gateway: "10.200.100.244"
+
+volumes:
+  config:
+  varlog:
+
+configs:
+  runit_init_sh:
+    content: |
+      #!/bin/sh
+
+      export > /etc/envvars
+
+      # Load nftables rules
+      /usr/sbin/nft -f /etc/nftables.conf
+
+      exec /sbin/runit-init 0
